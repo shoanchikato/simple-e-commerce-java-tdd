@@ -38,9 +38,6 @@ class ProductInMemoryRepositoryImplTest {
         assertEquals(expected, productRepository.edit(1, edit));
     }
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
     @Test
     void editNegative() {
         Product edit = new Product(null, "Sunlight", 20.00, 50);

@@ -2,10 +2,8 @@ package repository;
 
 import model.Product;
 import model.Transaction;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,12 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TransactionInMemoryRepositoryImplTest {
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
 
     private Repository<Transaction> transctionRepository;
-    private Transaction transaction = new Transaction(
-                    1L,
+    private Transaction transactionWithId = new Transaction(
+                    2L,
                     1L,
                     new Date(),
                     new ArrayList<>(Arrays.asList(new Product(1L, "Sunlight", 10.0, 2)))
@@ -40,23 +36,23 @@ class TransactionInMemoryRepositoryImplTest {
             new ArrayList<>(Arrays.asList(new Product(1L, "Sunlight", 10.0, 5)))
     );
     private Transaction transactionWithoutId = new Transaction(
-            1L,
+            null,
             1L,
             new Date(),
-            new ArrayList<>(Arrays.asList(new Product(null, "Sunlight", 10.0, 2)))
+            new ArrayList<>(Arrays.asList(new Product(1L, "Sunlight", 10.0, 2)))
     );
 
     @BeforeEach
     void setUp() {
         transctionRepository = new TransactionInMemoryRepositoryImpl(
-                new ArrayList<>(Arrays.asList(transaction))
+                new ArrayList<>(Arrays.asList(transactionWithId))
         );
     }
 
     @Test
     void create() {
         Transaction transction = transactionWithoutId;
-        Transaction expected = transction;
+        Transaction expected = transactionWithId;
 
         assertEquals(expected, transctionRepository.create(transction));
     }
@@ -80,7 +76,7 @@ class TransactionInMemoryRepositoryImplTest {
 
     @Test
     void getById() {
-        Transaction expected = transaction;
+        Transaction expected = transactionWithId;
 
         assertEquals(expected, transctionRepository.getById(1));
 
@@ -88,7 +84,7 @@ class TransactionInMemoryRepositoryImplTest {
 
     @Test
     void list() {
-        List<Transaction> expected = Arrays.asList(transaction);
+        List<Transaction> expected = Arrays.asList(transactionWithId);
 
         assertEquals(expected, transctionRepository.list());
     }

@@ -7,7 +7,6 @@ import java.util.List;
 public class ProductInMemoryRepositoryImpl implements Repository<Product> {
     private List<Product> products;
 
-
     public ProductInMemoryRepositoryImpl(List<Product> products) {
         this.products = products;
     }

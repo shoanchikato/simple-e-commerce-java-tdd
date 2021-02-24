@@ -1,10 +1,8 @@
 package repository;
 
 import model.Wallet;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,9 +35,6 @@ class WalletInMemoryRepositoryImplTest {
 
         assertEquals(expected, walletRepository.edit(1, edit));
     }
-
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
     void editNegative() {
