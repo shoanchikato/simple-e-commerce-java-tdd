@@ -20,16 +20,16 @@ public class WalletServiceImpl implements Service<Wallet> {
 
     @Override
     public Wallet edit(int id, Wallet entity) {
-        return null;
+        return walletRepository.edit(id, entity);
     }
 
     @Override
     public Wallet getById(int id) {
-        return null;
+        return walletRepository.getById(id);
     }
 
     @Override
     public List<Wallet> list() {
-        return null;
+        return walletRepository.list();
     }
 }

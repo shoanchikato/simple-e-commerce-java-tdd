@@ -36,13 +36,32 @@ class WalletServiceImplTest {
 
     @Test
     void edit() {
+
+        Wallet edit = new Wallet(1L, 1L, 10);
+
+        assertEquals(edit,walletService.edit(1,edit));
+
     }
 
     @Test
     void getById() {
+        Wallet expected =walletWithId;
+        assertEquals(expected,walletService.getById(1));
+
+
+
+
     }
 
     @Test
     void list() {
+
+        List<Wallet> expected=new ArrayList<>(Arrays.asList(walletWithId));
+
+        assertEquals(expected,walletService.list());
+
+
+
+
     }
 }
