@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TransactionInMemoryRepositoryImplTest {
 
-
     private Repository<Transaction> transctionRepository;
     private Transaction transactionWithId = new Transaction(
                     2L,
@@ -29,8 +28,14 @@ class TransactionInMemoryRepositoryImplTest {
             new Date(),
             new ArrayList<>(Arrays.asList(new Product(2L, "Sunlight", 10.0, 2)))
     );
-    private Transaction editTransaction = new Transaction(
+    private Transaction editTransactionWithId = new Transaction(
             1L,
+            1L,
+            new Date(),
+            new ArrayList<>(Arrays.asList(new Product(1L, "Sunlight", 10.0, 5)))
+    );
+    private Transaction editTransactionWithoutId = new Transaction(
+            null,
             1L,
             new Date(),
             new ArrayList<>(Arrays.asList(new Product(1L, "Sunlight", 10.0, 5)))
@@ -59,15 +64,15 @@ class TransactionInMemoryRepositoryImplTest {
 
     @Test
     void edit() {
-        Transaction edit = editTransaction;
-        Transaction expected = editTransaction;
+        Transaction edit = editTransactionWithoutId;
+        Transaction expected = editTransactionWithId;
 
         assertEquals(expected, transctionRepository.edit(1, edit));
     }
 
     @Test
     void editNegative() {
-        Transaction edit = editTransaction;
+        Transaction edit = editTransactionWithId;
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
                 transctionRepository.edit(0, edit));
 

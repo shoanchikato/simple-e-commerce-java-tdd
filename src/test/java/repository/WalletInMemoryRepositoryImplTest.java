@@ -12,33 +12,38 @@ import static org.junit.jupiter.api.Assertions.*;
 class WalletInMemoryRepositoryImplTest {
 
     private Repository<Wallet> walletRepository;
+    private Wallet walletWithId = new Wallet(1L, 1L, 0.0);
+    private Wallet walletWithoutId = new Wallet(null, 1L, 0.0);
+    private Wallet secondWallet = new Wallet(2L, 1L, 0.0);
+    private Wallet editWalletWithoutId = new Wallet(null, 1L, 20.0);
+    private Wallet editWalletWithId = new Wallet(1L, 1L, 20.0);
 
     @BeforeEach
     void setUp() {
         walletRepository = new WalletInMemoryRepositoryImpl(
-                new ArrayList<>(Arrays.asList(new Wallet(1L, 1L, 0.0)))
+                new ArrayList<>(Arrays.asList(walletWithId))
         );
     }
 
     @Test
     void create() {
-        Wallet wallet = new Wallet(null, 2L, 0.0);
-        Wallet expected = new Wallet(2L, 2L, 0.0);
+        Wallet wallet = walletWithoutId;
+        Wallet expected = secondWallet;
 
         assertEquals(expected, walletRepository.create(wallet));
     }
 
     @Test
     void edit() {
-        Wallet edit = new Wallet(1L, 1L, 10.0);
-        Wallet expected = new Wallet(1L, 1L, 10.0);
+        Wallet edit = editWalletWithoutId;
+        Wallet expected = editWalletWithId;
 
         assertEquals(expected, walletRepository.edit(1, edit));
     }
 
     @Test
     void editNegative() {
-        Wallet edit = new Wallet(1L, 1L, 0.0);
+        Wallet edit = editWalletWithoutId;
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
                 walletRepository.edit(0, edit));
 
@@ -47,14 +52,14 @@ class WalletInMemoryRepositoryImplTest {
 
     @Test
     void getById() {
-        Wallet expected = new Wallet(1L, 1L, 0.0);
+        Wallet expected = walletWithId;
 
         assertEquals(expected, walletRepository.getById(1));
     }
 
     @Test
     void list() {
-        List<Wallet> expected = Arrays.asList(new Wallet(1L, 1L, 0.0));
+        List<Wallet> expected = Arrays.asList(walletWithId);
 
         assertEquals(expected, walletRepository.list());
     }

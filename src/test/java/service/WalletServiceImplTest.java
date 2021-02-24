@@ -18,11 +18,14 @@ class WalletServiceImplTest {
     private Wallet walletWithId = new Wallet(1L, 1L, 0);
     private Wallet secondWallet = new Wallet(2L, 1L, 0);
     private Wallet walletWithoutId = new Wallet(null, 1L, 0);
+    private Wallet editWalletWithId = new Wallet(1L, 1L, 10);
+    private Wallet editWalletWithoutId = new Wallet(1L, 1L, 10);
 
     @BeforeEach
     void setUp() {
         List<Wallet> wallets = new ArrayList<>(Arrays.asList(walletWithId));
         Repository<Wallet> walletRepository = new WalletInMemoryRepositoryImpl(wallets);
+
         walletService = new WalletServiceImpl(walletRepository);
     }
 
@@ -36,32 +39,23 @@ class WalletServiceImplTest {
 
     @Test
     void edit() {
+        Wallet edit = editWalletWithoutId;
+        Wallet expected = editWalletWithId;
 
-        Wallet edit = new Wallet(1L, 1L, 10);
-
-        assertEquals(edit,walletService.edit(1,edit));
-
+        assertEquals(expected, walletService.edit(1,edit));
     }
 
     @Test
     void getById() {
         Wallet expected =walletWithId;
-        assertEquals(expected,walletService.getById(1));
 
-
-
-
+        assertEquals(expected, walletService.getById(1));
     }
 
     @Test
     void list() {
-
         List<Wallet> expected=new ArrayList<>(Arrays.asList(walletWithId));
 
         assertEquals(expected,walletService.list());
-
-
-
-
     }
 }

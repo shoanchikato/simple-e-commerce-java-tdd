@@ -2,17 +2,14 @@ package service;
 
 import model.Customer;
 import model.Wallet;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 import repository.CustomerInMemoryRepositoryImpl;
 import repository.Repository;
 import repository.WalletInMemoryRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +20,8 @@ class CustomerServiceImplTest {
     private Customer customer = new Customer(1L, "Jane", "Doe", 23);
     private Customer underAgeCustomer = new Customer(1L, "Jane", "Doe", 16);
     private Customer customerWithoutId = new Customer(null, "Jane", "Doe", 23);
-    private Customer editCustomer = new Customer(1L, "Jenny", "Doe", 23);
+    private Customer editCustomerWithId = new Customer(1L, "Jenny", "Doe", 23);
+    private Customer editCustomerWithoutId = new Customer(null, "Jenny", "Doe", 23);
 
     @BeforeEach
     void setUp() {
@@ -55,9 +53,10 @@ class CustomerServiceImplTest {
 
     @Test
     void edit() {
-        Customer edit = editCustomer;
+        Customer edit = editCustomerWithoutId;
+        Customer expected = editCustomerWithId;
 
-        assertEquals(edit, customerService.edit(1, edit));
+        assertEquals(expected, customerService.edit(1, edit));
     }
 
     @Test
