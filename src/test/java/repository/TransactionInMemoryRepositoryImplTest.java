@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TransactionInMemoryRepositoryImplTest {
 
-    private Repository<Transaction> transctionRepository;
+    private Repository<Transaction> transactionRepository;
     private Transaction transactionWithId = new Transaction(
                     2L,
                     1L,
@@ -49,7 +49,7 @@ class TransactionInMemoryRepositoryImplTest {
 
     @BeforeEach
     void setUp() {
-        transctionRepository = new TransactionInMemoryRepositoryImpl(
+        transactionRepository = new TransactionInMemoryRepositoryImpl(
                 new ArrayList<>(Arrays.asList(transactionWithId))
         );
     }
@@ -59,7 +59,7 @@ class TransactionInMemoryRepositoryImplTest {
         Transaction transction = transactionWithoutId;
         Transaction expected = transactionWithId;
 
-        assertEquals(expected, transctionRepository.create(transction));
+        assertEquals(expected, transactionRepository.create(transction));
     }
 
     @Test
@@ -67,14 +67,14 @@ class TransactionInMemoryRepositoryImplTest {
         Transaction edit = editTransactionWithoutId;
         Transaction expected = editTransactionWithId;
 
-        assertEquals(expected, transctionRepository.edit(1, edit));
+        assertEquals(expected, transactionRepository.edit(1, edit));
     }
 
     @Test
     void editNegative() {
         Transaction edit = editTransactionWithId;
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                transctionRepository.edit(0, edit));
+                transactionRepository.edit(0, edit));
 
         assertEquals("id doesn't exist " + 0L, exception.getMessage());
     }
@@ -83,7 +83,7 @@ class TransactionInMemoryRepositoryImplTest {
     void getById() {
         Transaction expected = transactionWithId;
 
-        assertEquals(expected, transctionRepository.getById(1));
+        assertEquals(expected, transactionRepository.getById(1));
 
     }
 
@@ -91,6 +91,6 @@ class TransactionInMemoryRepositoryImplTest {
     void list() {
         List<Transaction> expected = Arrays.asList(transactionWithId);
 
-        assertEquals(expected, transctionRepository.list());
+        assertEquals(expected, transactionRepository.list());
     }
 }
