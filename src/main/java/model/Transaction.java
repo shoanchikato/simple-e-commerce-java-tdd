@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class Transaction {
+public class Transaction implements Entity {
     private Long id;
     private Long customerId;
     private Date date;

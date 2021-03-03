@@ -4,7 +4,7 @@ import lombok.*;
 
 @Data
 @AllArgsConstructor
-public class Product {
+public class Product implements Entity {
     private Long id;
     private String name;
     private double price;
